@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	public float movementSpeed = 10f;
-    public GameObject shot;
+    private Laser laser;
     public Transform shotSpawn;
     public float fireRate;
     private float nextFire;
@@ -20,7 +20,10 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody2D>();
+
+        laser =  new Laser();
+
+        rb = GetComponent<Rigidbody2D>();
         deneme = 0;
 	}
 	
@@ -40,7 +43,7 @@ public class Player : MonoBehaviour {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            Instantiate(laser, shotSpawn.position, shotSpawn.rotation);
             
            // while (time < 2.0f)
             //{
