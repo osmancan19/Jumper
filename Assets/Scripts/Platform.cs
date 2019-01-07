@@ -8,7 +8,7 @@ public class Platform : MonoBehaviour {
 
 
     public Animator animator;
-    public Animation animation;
+    public Animation anim;
     
 
     // private bool flag = false;
@@ -65,23 +65,17 @@ public class Platform : MonoBehaviour {
 				velocity.y = jumpForce;
                 rb.velocity = velocity;
 
-                //animator.SetTrigger("jmpTr");
-
-
-
-                
-
                  animator.SetBool("isJump", true);
 
 
 
                 // flag = true;
 
-                //animation.Play("character_jump2");
+                //anim.Play("character_jump2");
 
                 //  animator.Play("")
 
-                //animation.Play("character_jump");
+                //anim.Play("character_jump");
 
                 //animator.SetBool("isJump", false);
 
@@ -104,27 +98,6 @@ public class Platform : MonoBehaviour {
         animator.SetBool("isJump", false);
 
     }
-
-    /*
-    private void OnCollisionExit(Collision collision)
-    {
-
-
-        time += Time.deltaTime;
-
-        if (time >= 0.3f && flag == true)
-        {
-            animator.SetBool("isJump", false);
-
-            time = 0f;
-
-            flag = false;
-        }
-        
-
-    }
-    */
-
 
 
 }
