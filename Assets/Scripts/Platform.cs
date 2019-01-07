@@ -24,6 +24,21 @@ public class Platform : MonoBehaviour {
     void Update()
     {
 
+
+        /*
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2f)
+        {
+            animator.SetBool("isJump", false);
+
+            anim["character_jump2"].normalizedTime = 0f;
+
+            //animator.SetTrigger("jumpTrigger");
+
+
+        }*/
+
+
+
         /*
         time += Time.deltaTime;
 
@@ -65,9 +80,12 @@ public class Platform : MonoBehaviour {
 				velocity.y = jumpForce;
                 rb.velocity = velocity;
 
-                 animator.SetBool("isJump", true);
 
+                animator.Play("character_jump2", 0, 0);
 
+                // animator.SetBool("isJump", true);
+
+                //                animator.SetTrigger("jumpTrigger");
 
                 // flag = true;
 
