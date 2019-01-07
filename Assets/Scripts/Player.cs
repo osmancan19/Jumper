@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	public float movementSpeed = 31f;
+    public Animator anm;
     public GameObject shot;
     public Transform shotSpawn;
     public float fireRate;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour {
     Rigidbody2D rb;
     int deneme;
     private GameObject tempp;
+    
 
 	float movement = 0f;
 
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour {
     {
         if (collision.tag == "Platform" || collision.tag == "Boundary")
         {
-            return;
+           // anm.SetBool("isJump", true);
         }
 
         if (explosion != null)
