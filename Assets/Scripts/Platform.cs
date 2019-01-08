@@ -16,12 +16,8 @@ public class Platform : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
 	{
 
-  
-
-
         if (collision.relativeVelocity.y <= 0f)
 		{
-
 
             GetComponent<AudioSource>().Play();
             rb = collision.collider.GetComponent<Rigidbody2D>();
@@ -32,14 +28,10 @@ public class Platform : MonoBehaviour {
 				velocity.y = jumpForce;
                 rb.velocity = velocity;
 
-
             }
-
 
         }
 
-
 	}
-
 
 }

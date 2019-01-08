@@ -34,17 +34,19 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+
         Vector2 velocity = rb.velocity;
 		velocity.x = movement;
 		rb.velocity = velocity;
+
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             tempp=Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             Destroy(tempp, 0.8f);
         }
-	}
 
+	}
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -57,8 +59,6 @@ public class Player : MonoBehaviour {
 
 
     }
-
-
 
     public void EndEvent()
     {
