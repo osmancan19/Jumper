@@ -20,6 +20,7 @@ public class MeteorController : MonoBehaviour
         gO = this.gameObject;
     }
 
+
     private void FixedUpdate()
     {
         
@@ -30,7 +31,7 @@ public class MeteorController : MonoBehaviour
 
             Destroy(gO);
 
-        } 
+        }
 
         //transform.Rotate(0, 0, 50f * Time.deltaTime, Space.World);
 

@@ -87,7 +87,14 @@ public class Player : MonoBehaviour {
         if(collision.collider.tag == "platform") //eger platforma degersek karakter ziplama animasyonu calisiyor.
             animator.SetBool("isJump", true);
 
-        if (collision.collider.tag == "Meteor") { //eger meteor carparsa end game.
+        else if (collision.collider.tag == "Meteor") { //eger meteor carparsa end game.
+
+            FindObjectOfType<GameManager>().EndGame();
+
+        }
+
+        else if(collision.collider.tag == "BlackHole")
+        {
 
             FindObjectOfType<GameManager>().EndGame();
 
