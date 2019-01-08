@@ -5,54 +5,102 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour {
 
     private Queue<GameObject> platformQueue;
-    public GameObject firstPlatform;
     public GameObject platformPrefab;
     private GameObject temp;
-    public int numberOfPlatforms = 120;
+    private int numberOfPlatforms = 5;
 	public float levelWidth = 3f;
-	public float minY = .2f;
-	public float maxY = 1.5f;
     Vector3 spawnPosition = new Vector3();
-    private float time = 0.0f;
+
+
+    public Transform player;
+    private float currentPosition;//current position 
+    private float exPosition;//exposition
+    private bool firstTimeOnDelete = true;
+
+
     // Use this for initialization
     void Start () {
+        
+        exPosition = player.position.y;
+
         platformQueue = new Queue<GameObject>();
 
-        spawnPosition.y = -3;
-        spawnPosition.x = Random.Range(-levelWidth, levelWidth);
-        temp = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
-        platformQueue.Enqueue(temp);
+        spawnPosition.y = exPosition;
+        
+        for (int i = 0; i < numberOfPlatforms + 5; i++)  // baslangicta 10 platform.
+        {
+            
+            spawnPosition.x = Random.Range(-levelWidth, levelWidth);
+            temp = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
+            platformQueue.Enqueue(temp);
+            spawnPosition.y += 1.86f;
+
+        } 
+
+	}
+
+    void Update()
+    {
+
+        currentPosition = player.position.y;
+
+        if ((currentPosition - exPosition) >= numberOfPlatforms*1.86f)
+        {
+          
+            exPosition = currentPosition;
+            makeTen();
+            deleteTen();
+
+        }
+
+    }
+
+    private void makeTen()
+    {
+
+        spawnPosition.y = currentPosition + 5*1.86f;   //ekledigimiz fazladan 5 platform yukarisi olacak sekilde ayarliyoruz.
 
         for (int i = 0; i < numberOfPlatforms; i++)
         {
-            spawnPosition.y += Random.Range(minY, maxY);
-            spawnPosition.x = Random.Range(-levelWidth, levelWidth);
-            temp = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
-            platformQueue.Enqueue(temp);
-        }
-	}
-    void Update()
-    {
-        time += Time.deltaTime;
-        
-        if (time > 5.0f)  
-        {
             
-            if (firstPlatform != null)
-            {
-                Destroy(firstPlatform);
-            }
-            temp = platformQueue.Dequeue();
-            Destroy(temp);
-            spawnPosition.y += Random.Range(minY, maxY);
             spawnPosition.x = Random.Range(-levelWidth, levelWidth);
             temp = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
             platformQueue.Enqueue(temp);
-
-            time = 3.7f;
+            spawnPosition.y += 1.86f; //Random.Range(minY, maxY);
 
         }
-        
+
+    }
+
+    private void deleteTen()
+    {
+
+        if(firstTimeOnDelete == true)
+        {
+
+            firstTimeOnDelete = false;
+
+            for (int i = 0; i < numberOfPlatforms - 2; i++)
+            {
+
+                temp = platformQueue.Dequeue();
+                Destroy(temp);
+
+            }
+
+        }
+        else
+        {
+
+            for (int i = 0; i < numberOfPlatforms ; i++)
+            {
+
+                temp = platformQueue.Dequeue();
+                Destroy(temp);
+
+            }
+
+        }
 
     }
 

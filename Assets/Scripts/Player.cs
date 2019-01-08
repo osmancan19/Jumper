@@ -17,6 +17,10 @@ public class Player : MonoBehaviour {
     private GameObject tempp;
     public Animator animator;
     public Animation anim;
+    public Transform currentPosition;
+
+    private float currentpositionX;
+    private float currentpositionY;
 
 
     private float score;
@@ -34,10 +38,28 @@ public class Player : MonoBehaviour {
 
         movement = Input.GetAxis("Horizontal") * movementSpeed;
 
+
     }
 
 	void FixedUpdate()
 	{
+        //karakter hareketleri yapilacak.(saga gidince sola gelmesi vb.)
+        currentpositionX = currentPosition.position.x;
+        currentpositionY = currentPosition.position.y;
+
+        if (currentpositionX < -4.6f)
+        {
+
+            transform.Translate(7f, currentpositionY, 0);
+
+        }
+        else if (currentpositionX > 3.60)
+        {
+
+            transform.Translate(-7f, currentpositionY, 0);
+
+        }
+
 
         Vector2 velocity = rb.velocity;
 		velocity.x = movement;
@@ -61,14 +83,22 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-       animator.SetBool("isJump", true);
-        score = score + 0.1f;
 
-       // animator.SetTrigger("jmp");
-        //animator.ResetTrigger("idle");
+        if(collision.collider.tag == "platform") //eger platforma degersek karakter ziplama animasyonu calisiyor.
+            animator.SetBool("isJump", true);
+
+        if (collision.collider.tag == "Meteor") { //eger meteor carparsa end game.
+
+            FindObjectOfType<GameManager>().EndGame();
+
+        }
+
+
+        // score = score + 0.1f;
+
     }
 
-
+    /*
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -80,13 +110,11 @@ public class Player : MonoBehaviour {
     {
 
 
-    }
+    } */
 
     public void EndEvent()
     {
         animator.SetBool("isJump", false);
-        //animator.ResetTrigger("jmp");
-       // animator.SetTrigger("idle");
 
     }
 

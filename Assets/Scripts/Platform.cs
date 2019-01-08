@@ -16,11 +16,12 @@ public class Platform : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
 	{
 
-        if (collision.relativeVelocity.y <= 0f)
+        if (collision.relativeVelocity.y <= 0f  && collision.collider.tag == "PlayerTag") 
 		{
 
             GetComponent<AudioSource>().Play();
             rb = collision.collider.GetComponent<Rigidbody2D>();
+
 			if (rb != null)
 			{
                
@@ -32,6 +33,7 @@ public class Platform : MonoBehaviour {
 
         }
 
-	}
+        
+    }
 
 }
