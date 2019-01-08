@@ -50,8 +50,9 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-         animator.SetBool("isJump", true);
-
+       animator.SetBool("isJump", true);
+       // animator.SetTrigger("jmp");
+        //animator.ResetTrigger("idle");
     }
 
     void OnTriggerEnter(Collider collision)
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour {
     public void EndEvent()
     {
         animator.SetBool("isJump", false);
+        //animator.ResetTrigger("jmp");
+       // animator.SetTrigger("idle");
 
     }
 
