@@ -19,21 +19,27 @@ public class Player : MonoBehaviour {
     public Animation anim;
 
 
+    private float score;
+
     float movement = 0f;
     
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
+        score = 0;
 	}
 	
 	void Update ()
     {
+
         movement = Input.GetAxis("Horizontal") * movementSpeed;
 
     }
 
 	void FixedUpdate()
 	{
+
+
 
         Vector2 velocity = rb.velocity;
 		velocity.x = movement;
@@ -46,13 +52,31 @@ public class Player : MonoBehaviour {
             Destroy(tempp, 0.8f);
         }
 
-	}
+        if(rb.position.y < -6f)
+        {
+
+            FindObjectOfType<GameManager>().EndGame();
+
+        }
+
+
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
        animator.SetBool("isJump", true);
+        score = score + 0.1f;
+
        // animator.SetTrigger("jmp");
         //animator.ResetTrigger("idle");
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+
+        
     }
 
     void OnTriggerEnter(Collider collision)
