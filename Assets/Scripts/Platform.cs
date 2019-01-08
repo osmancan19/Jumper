@@ -6,99 +6,31 @@ public class Platform : MonoBehaviour {
 
 	public float jumpForce = 10f;
 
+    public Rigidbody2D rb;
+
 
     public Animator animator;
     public Animation anim;
-    
 
-    // private bool flag = false;
-    //  private float time = 0.0f;
-
-
-    private void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-
-
-        /*
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 2f)
-        {
-            animator.SetBool("isJump", false);
-
-            anim["character_jump2"].normalizedTime = 0f;
-
-            //animator.SetTrigger("jumpTrigger");
-
-
-        }*/
-
-
-
-        /*
-        time += Time.deltaTime;
-
-        if (time >= 0.3f &&  flag == true)
-        {
-            animator.SetBool("isJump", false);
-
-            time = 0f;
-
-            flag = false;
-        } */
-
-
-    }
-
-    /*
-    private void jumpAnimationEnd()
-    {
-        if(animator.GetBool("isJump") == true) { 
-          animator.SetBool("isJump", false);
-          
-        }
-    }*/
 
     void OnCollisionEnter2D(Collision2D collision)
-	{ 
+	{
+
+  
+
+
         if (collision.relativeVelocity.y <= 0f)
 		{
 
 
             GetComponent<AudioSource>().Play();
-            Rigidbody2D rb = collision.collider.GetComponent<Rigidbody2D>();
+            rb = collision.collider.GetComponent<Rigidbody2D>();
 			if (rb != null)
 			{
-
-                //CancelInvoke();
-
+               
                 Vector2 velocity = rb.velocity;
 				velocity.y = jumpForce;
                 rb.velocity = velocity;
-
-
-                animator.Play("character_jump2", 0, 0);
-
-                // animator.SetBool("isJump", true);
-
-                //                animator.SetTrigger("jumpTrigger");
-
-                // flag = true;
-
-                //anim.Play("character_jump2");
-
-                //  animator.Play("")
-
-                //anim.Play("character_jump");
-
-                //animator.SetBool("isJump", false);
-
-                // InvokeRepeating("jumpAnimationEnd",0.5f,5f);
-
 
 
             }
@@ -108,14 +40,6 @@ public class Platform : MonoBehaviour {
 
 
 	}
-
-
-    public void animationEnded()
-    {
-
-        animator.SetBool("isJump", false);
-
-    }
 
 
 }

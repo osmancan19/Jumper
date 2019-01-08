@@ -15,8 +15,11 @@ public class Player : MonoBehaviour {
     public GameObject playerExplosion;
     Rigidbody2D rb;
     private GameObject tempp;
-    
-	float movement = 0f;
+    public Animator animator;
+    public Animation anim;
+
+
+    float movement = 0f;
     
 	void Start ()
     {
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour {
 	void Update ()
     {
         movement = Input.GetAxis("Horizontal") * movementSpeed;
+
     }
 
 	void FixedUpdate()
@@ -40,28 +44,26 @@ public class Player : MonoBehaviour {
             Destroy(tempp, 0.8f);
         }
 	}
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+         animator.SetBool("isJump", true);
+
+    }
+
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.tag == "Platform" || collision.tag == "Boundary")
-        {
-           // anm.SetBool("isJump", true);
-        }
 
-        if (explosion != null)
-        {
-            Instantiate(explosion, transform.position, transform.rotation);
-        }
 
-        if (collision.tag == "Enemy")
-        {
-            Instantiate(playerExplosion, collision.transform.position, collision.transform.rotation);
-        }
-        
-        Destroy(collision.gameObject);
-        Destroy(gameObject);
     }
 
 
 
+    public void EndEvent()
+    {
+        animator.SetBool("isJump", false);
+
+    }
 
 }
